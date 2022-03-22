@@ -35,4 +35,9 @@ public class DummyMealRepo implements MealRepo {
     public List<Meal> findAll() {
         return starterMeals;
     }
+
+    @Override
+    public Meal save(Meal meal) {
+        return meal;
+    }
 }

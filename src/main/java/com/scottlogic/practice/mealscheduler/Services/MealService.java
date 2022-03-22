@@ -19,4 +19,8 @@ public class MealService {
     public List<Meal> GetAllMeals() {
         return mealRepo.findAll();
     }
+
+    public Meal CreateMeal(Meal meal) {
+        return mealRepo.save(meal);
+    }
 }

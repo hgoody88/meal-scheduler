@@ -49,4 +49,16 @@ public class MealControllerTest {
         //Assert
         assertEquals(result, testMeals);
     }
+
+    @Test
+    public void PostNewMeal_ShouldReturnMealPosted() {
+        var meal = testMeals.get(0);
+        when(mealRepo.save(meal)).thenReturn(new Meal(meal));
+
+        //Act
+        var result = mealController.CreateMeal(meal);
+
+        //Assert
+        assertEquals(result, meal);
+    }
 }
