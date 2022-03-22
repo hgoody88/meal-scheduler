@@ -1,9 +1,9 @@
 package com.scottlogic.practice.mealscheduler.ControllerTests;
 
-import com.scottlogic.practice.mealscheduler.Controllers.MealControllerConfiguration;
+import com.scottlogic.practice.mealscheduler.Controllers.MealController;
 import com.scottlogic.practice.mealscheduler.Models.Meal;
 import com.scottlogic.practice.mealscheduler.Repositories.MealRepo;
-import com.scottlogic.practice.mealscheduler.Services.MealServiceConfiguration;
+import com.scottlogic.practice.mealscheduler.Services.MealService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
@@ -21,9 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+
 @AutoConfigureWebMvc
 @WebMvcTest
-@ContextConfiguration(classes = {MealServiceConfiguration.class, MealControllerConfiguration.class})
+@ContextConfiguration(classes = {MealService.class, MealController.class})
 public class MealControllerIntegrationTest {
 
     @Autowired
