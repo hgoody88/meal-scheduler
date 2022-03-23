@@ -22,3 +22,5 @@ target/
 ### VS Code ###
 .vscode/
 /meal-scheduler.log
+/data/
+/meal-scheduler.log.*.gz

@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -39,11 +38,11 @@ public class MealControllerIntegrationTest {
     MealRepo mealRepo;
 
     private final List<Meal> testMeals = List.of(
-            new Meal(UUID.randomUUID(),
+            new Meal(1,
                     "Curry",
                     LocalDateTime.of(2022, 2, 2, 12, 32),
                     "User Two"),
-            new Meal(UUID.randomUUID(),
+            new Meal(2,
                     "Pasta",
                     LocalDateTime.of(2022, 1, 1, 10, 30),
                     "User One"));
