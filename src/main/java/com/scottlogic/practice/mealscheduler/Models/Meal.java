@@ -15,6 +15,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Meal {
+    public static Meal copyOf(Meal meal) {
+        return new Meal(meal.getId(), meal.getName(), meal.getTime(), meal.getUser());
+    }
+
     @Id
     @GeneratedValue
     @Getter

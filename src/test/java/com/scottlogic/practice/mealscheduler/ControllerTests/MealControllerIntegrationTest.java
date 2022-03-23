@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -77,7 +78,8 @@ public class MealControllerIntegrationTest {
     @Test
     public void PostNewMeal_Integration() throws Exception {
         var meal = testMeals.get(0);
-        when(mealRepo.save(meal)).thenReturn(new Meal(meal));
+        //repo will get another object, deserialised from json. we must not assume ref-equality with 'meal' above
+        when(mealRepo.save(any(Meal.class))).thenAnswer(x -> Meal.copyOf(x.getArgument(0, Meal.class)));
 
         // Declared outside try catch as felt too heavyweight to have the whole test inside
         // the try block
