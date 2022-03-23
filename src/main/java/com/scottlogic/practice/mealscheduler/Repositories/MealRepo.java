@@ -6,5 +6,7 @@ import com.scottlogic.practice.mealscheduler.Models.Meal;
 import java.util.List;
 
 public interface MealRepo {
-    public List<Meal> findAll();
+    List<Meal> findAll();
+
+    Meal save(Meal meal);
 }

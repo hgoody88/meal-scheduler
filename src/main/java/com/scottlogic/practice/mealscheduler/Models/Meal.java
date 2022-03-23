@@ -18,4 +18,8 @@ public class Meal {
         Time = time;
         User = user;
     }
+
+    public Meal(Meal meal) {
+        this(meal.Id, meal.Name, meal.Time, meal.User);
+    }
 }
