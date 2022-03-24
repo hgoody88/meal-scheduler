@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Meal {
     public static Meal copyOf(Meal meal) {
         return new Meal(meal.getId(), meal.getName(), meal.getTime(), meal.getUser());
@@ -21,19 +23,8 @@ public class Meal {
 
     @Id
     @GeneratedValue
-    @Getter
-    @Setter
     private int Id;
-
-    @Getter
-    @Setter
     private String Name;
-
-    @Getter
-    @Setter
     private LocalDateTime Time;
-
-    @Getter
-    @Setter
     private String User;
 }
