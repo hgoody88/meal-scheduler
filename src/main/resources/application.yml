@@ -8,8 +8,7 @@ spring:
       matching-strategy: ant_path_matcher
 
   datasource:
-    url: jdbc:h2:mem:mydb
-    #url: jdbc:h2:file:./data/meals-db.h2
+    url: jdbc:h2:file:./data/meals-db.h2
     username: sa
     password: password
     driverClassName: org.h2.Driver
@@ -18,11 +17,13 @@ spring:
     #create db schema before executing data.sql
     #defer-datasource-initialization: true
     show-sql: true
+    #caused table creating when file storage used
+    hibernate:
+      ddl-auto: update
 
   #to enable http://localhost:8080/h2-console/
   h2:
     console:
       enabled: true
-
 
 management.endpoints.web.exposure.include: health,info,prometheus
