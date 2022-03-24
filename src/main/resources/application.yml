@@ -6,3 +6,20 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+  datasource:
+    url: jdbc:h2:mem:mydb
+    #url: jdbc:h2:file:./data/meals-db.h2
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    #create db schema before executing data.sql
+    #defer-datasource-initialization: true
+    show-sql: true
+
+  #to enable http://localhost:8080/h2-console/
+  h2:
+    console:
+      enabled: true

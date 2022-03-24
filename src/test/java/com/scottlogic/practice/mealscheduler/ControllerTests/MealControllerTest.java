@@ -11,7 +11,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -23,17 +22,14 @@ public class MealControllerTest {
     MealRepo mealRepo;
 
     @Autowired
-    MealService mealService;
-
-    @Autowired
     MealController mealController;
 
     private final List<Meal> testMeals = List.of(
-            new Meal(UUID.randomUUID(),
+            new Meal(1,
                     "Curry",
                     LocalDateTime.of(2022, 2, 2, 12, 32),
                     "User Two"),
-            new Meal(UUID.randomUUID(),
+            new Meal(2,
                     "Pasta",
                     LocalDateTime.of(2022, 1, 1, 10, 30),
                     "User One"));
@@ -53,12 +49,14 @@ public class MealControllerTest {
     @Test
     public void PostNewMeal_ShouldReturnMealPosted() {
         var meal = testMeals.get(0);
-        when(mealRepo.save(meal)).thenReturn(new Meal(meal));
+        when(mealRepo.save(meal)).thenReturn(Meal.copyOf(meal));
 
         //Act
         var result = mealController.CreateMeal(meal);
 
         //Assert
-        assertEquals(result, meal);
+        assertEquals(result.getName(), meal.getName());
+        assertEquals(result.getTime(), meal.getTime());
+        assertEquals(result.getUser(), meal.getUser());
     }
 }
