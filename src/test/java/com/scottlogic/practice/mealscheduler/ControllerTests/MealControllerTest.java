@@ -3,7 +3,6 @@ package com.scottlogic.practice.mealscheduler.ControllerTests;
 import com.scottlogic.practice.mealscheduler.Controllers.MealController;
 import com.scottlogic.practice.mealscheduler.Models.Meal;
 import com.scottlogic.practice.mealscheduler.Repositories.MealRepo;
-import com.scottlogic.practice.mealscheduler.Services.MealService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
