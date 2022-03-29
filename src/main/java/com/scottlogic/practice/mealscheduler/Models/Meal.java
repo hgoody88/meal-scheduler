@@ -27,4 +27,13 @@ public class Meal {
     private String Name;
     private LocalDateTime Time;
     private String User;
+
+    //This is needed because we don't want POST requests to supply an id,
+    //so we need to be able to work with a meal without an id,
+    //beware this could potentially cause issues.
+    public Meal(String name, LocalDateTime time, String user) {
+        Name = name;
+        Time = time;
+        User = user;
+    }
 }
