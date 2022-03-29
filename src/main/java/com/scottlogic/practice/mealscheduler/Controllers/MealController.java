@@ -3,7 +3,6 @@ package com.scottlogic.practice.mealscheduler.Controllers;
 import com.scottlogic.practice.mealscheduler.Models.Meal;
 import com.scottlogic.practice.mealscheduler.Services.MealService;
 import io.micrometer.core.annotation.Timed;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,8 +36,8 @@ public class MealController {
     public ResponseEntity<Integer> DeleteMeal(@PathVariable Integer id) {
         var result = mealService.DeleteMeal(id);
 
-        return result.map(
-                deleteId -> new ResponseEntity<>(deleteId, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return result
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
