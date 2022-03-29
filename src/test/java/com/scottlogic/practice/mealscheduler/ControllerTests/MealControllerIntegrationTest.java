@@ -4,17 +4,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.scottlogic.practice.mealscheduler.Controllers.MealController;
 import com.scottlogic.practice.mealscheduler.Models.Meal;
 import com.scottlogic.practice.mealscheduler.Repositories.MealRepo;
-import com.scottlogic.practice.mealscheduler.Services.MealService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -22,21 +21,20 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@AutoConfigureWebMvc
-@WebMvcTest
-@ContextConfiguration(classes = {MealService.class, MealController.class})
+@SpringBootTest
+@AutoConfigureMockMvc
+@AutoConfigureTestDatabase
+@TestPropertySource("classpath:application-test.yml")
 public class MealControllerIntegrationTest {
 
     @Autowired
-    MockMvc mvc;
-
-    @MockBean
     MealRepo mealRepo;
+
+    @Autowired
+    MockMvc mvc;
 
     private final List<Meal> testMeals = List.of(
             new Meal(1,
@@ -57,9 +55,14 @@ public class MealControllerIntegrationTest {
         return objectMapper.writeValueAsString(obj);
     }
 
+    @BeforeEach
+    private void setUp(){
+        mealRepo.deleteAll();
+    }
+
     @Test
     public void GetAllMeals_Integration() throws Exception {
-        when(mealRepo.findAll()).thenReturn(testMeals);
+        mealRepo.saveAll(testMeals);
 
         //Act
         final var result = mvc.perform(MockMvcRequestBuilders.get("/meals"))
@@ -79,7 +82,6 @@ public class MealControllerIntegrationTest {
     public void PostNewMeal_Integration() throws Exception {
         var meal = testMeals.get(0);
         //repo will get another object, deserialised from json. we must not assume ref-equality with 'meal' above
-        when(mealRepo.save(any(Meal.class))).thenAnswer(x -> Meal.copyOf(x.getArgument(0, Meal.class)));
 
         // Declared outside try catch as felt too heavyweight to have the whole test inside
         // the try block
